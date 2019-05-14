@@ -1,4 +1,4 @@
-#include "../include/couleur.h"
+#include <couleur.h>
 
 char* couleur_tostring(Couleur c) {
 	switch (c) {

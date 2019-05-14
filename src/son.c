@@ -1,14 +1,8 @@
-/**
- * \file son.c
- * \brief Fonctions pour jouer des sons avec SDL_Mixer
- * \author BASTIDE Robin
- */
-
 #include <SDL2/SDL_mixer.h>
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../include/son.h"
+#include <son.h>
 
 // Variables globales de son
 /** \brief Pointeur sur le struct contenant les ressources audio */

@@ -1,5 +1,5 @@
-#include "../include/gestion_partie_sdl.h"
-#include "../include/sdl.h"
+#include <gestion_partie_sdl.h>
+#include <sdl.h>
 
 int main(){
 

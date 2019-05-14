@@ -1,28 +1,16 @@
-/**
-	\file gestion_bot.c
-	\brief Fichier de fonctions pour faire jouer un bot
-	\author RIGUIDEL Hugo & WIDMER Alexis
-	\version 1.0
-	\date 08/04/2019
-
-	Ce fichier permet de faire jouer un bot en calculant tous les Coup possibles, la valeur de chaque Coup et de placer la Piece dans l'orientation du Coup aux coordonnées du Coup.
-*/
-
-#include "../include/gestion_bot.h"
-#include "../include/gestion_tour.h"
-#include "../include/gestion_tour_sdl.h"
-#include "../include/couleur.h"
-#include "../include/joueur.h"
-#include "../include/commun.h"
-#include "../include/affichage_sdl.h"
-#include "../include/affichage.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
 #include <time.h>
 #include <SDL2/SDL.h>
+
+#include <gestion_bot.h>
+#include <gestion_tour.h>
+#include <gestion_tour_sdl.h>
+#include <couleur.h>
+#include <joueur.h>
+#include <commun.h>
+#include <affichage_sdl.h>
 
 extern SDL_Renderer* renderer;
 
@@ -564,7 +552,7 @@ int gestion_tour_bot(Couleur pl[TAILLE_PLATEAU][TAILLE_PLATEAU], Joueur* bot) {
 	coup_detruire(&c);
 
 	/* Attente après le tour d'un bot */
-	sleep(TEMPS_ATTENTE_BOT);
+	//sleep(TEMPS_ATTENTE_BOT);
 
 	return retour;
 }

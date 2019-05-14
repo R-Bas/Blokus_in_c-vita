@@ -1,19 +1,10 @@
-/**
-	\file carre.c
-	\brief Fichier de fonctions pour accesseurs et de modifications pour un Carre et une Piece
-	\author WIDMER Alexis
-	\version 1.0
-	\date 01/03/2019
-
-	Ce fichier permet d'avoir accès aux attributs d'un Carre et d'une Piece, de les créer, de les supprimer ou de les afficher.
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/carre.h"
-#include "../include/piece.h"
-#include "../include/commun.h"
-#include "../include/gestion_tour.h"
+
+#include <carre.h>
+#include <piece.h>
+#include <commun.h>
+#include <gestion_tour.h>
 
 /* Procédures d'accès pour un carré */
 

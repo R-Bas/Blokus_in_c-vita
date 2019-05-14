@@ -1,52 +1,10 @@
-/**
- *	\file gestion_tour.c
- *	\brief Fichier de fonctions permettant de gérer le tour d'un joueur
- *  \details Contient les fonctions demandant la pièce à jouer, son orientation et ses coordonnées au joueur
-     ainsi que les fonctions de vérification de position et de couleur et de pose de celle-ci
- *  \author RIGUIDEL Hugo
- *	\version 1.0
- *	\date 12/03/2019
- */
-
-#include "../include/gestion_tour.h"
-#include "../include/affichage.h"
-#include "../include/carre.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 
-/**
- * \fn Piece* demander_piece(Joueur* j)
- * \brief Demande au joueur la pièce qu'il souhaite jouer
- * \details Affiche les pièces qu'il reste au joueur avec un numéro et lui demande de choisir quelle pièce jouer
-    et attend qu'il entre le numéro
- * \param j Pointeur sur le joueur devant choisir sa pièce
- */
-/* Affiche les pièces qu'il reste au joueur avec un numéro et lui demande de choisir quelle pièce jouer et attend qu'il entre le numéro */
-Piece* demander_piece(Joueur* j)
-{
-    int nb, i;
-    Piece* p = joueur_liste_piece(j);
+#include <gestion_tour.h>
+#include <carre.h>
+#include <commun.h>
 
-    printf("Quelle pièce voulez-vous jouer ?\n");
-    afficher_pieces_dispo(j);
-    scanf("%d", &nb);
-
-    /* Tant que le joueur entre un numéro ne correspondant pas à une pièce disponible, on redemande un numéro valide */
-    while((nb <= 0) && (nb > joueur_nb_piece_restantes(j)))
-    {
-        printf("Veuillez entrer une valeur correcte\n");
-        printf("Quelle pièce voulez-vous jouer ?\n");
-        afficher_pieces_dispo(j);
-        scanf("%d", &nb);
-    }
-
-    /* on sélectionne la bonne pièce */
-    for(i = 1; i < nb; i++)
-        p = piece_suivant(p);
-
-    return p;
-}
 
 /**
  * \fn void initialiser_matrice(int matrice[5][5])
@@ -108,35 +66,6 @@ void afficher_matrice(int matrice[5][5])
 }
 */
 
-/**
- * \fn void demander_orientation(Piece* p, Joueur* j)
- * \brief Demande au joueur l'orientation de la pièce qu'il souhaite jouer
- * \details Affiche les 4 orientations possibles de la pièce au joueur avec un numéro et attend qu'il entre un numéro.
-    Modifie également les coordonnees relatives des carres constituant la pièce une fois l'orientation choisie
- * \param p Pointeur sur la pièce que le joueur souhaite jouer
- * \param j Pointeur sur le joueur devant jouer
- */
-void demander_orientation(Piece* p, Joueur* j)
-{
-    int nb;
-    Carre* c = piece_liste_carre(p);
-
-    afficher_choix_orientation(p, j);
-    printf("Dans quelle orientation voulez-vous jouer la pièce ? :\n");
-    scanf("%d", &nb);
-    nb--;
-
-    /* tant que le joueur n'entre pas un numéro d'orientation correct, on lui redemande un numéro valide */
-    while((nb < HAUT) || (nb > GAUCHE))
-    {
-        printf("Veuillez entrer une orientation correcte\n");
-        printf("Dans quelle orientation voulez-vous jouer la pièce ? :\n");
-        afficher_choix_orientation(p, j);
-        scanf("%d", &nb);
-        nb--;
-    }
-    piece_pivoter(nb, c);
-}
 
 /**
  * \fn int verification_position(Couleur pl[20][20], int x, int y, Piece* p)
@@ -220,151 +149,7 @@ int verification_couleur(Couleur pl[20][20], int x, int y, Couleur col, Piece* p
     return 0;
 }
 
-/* Demande au joueur les coordonnees ou il désire jouer sa pièce */
-/* Tant qu'il n'est pas possible de jouer aux coords, redemande des coordonnees valides */
 
-/**
- * \fn void choisir_coordonnee(Couleur pl[20][20], Piece* pi, int* x, int* y, Joueur* j)
- * \brief Demande au joueur à quelles coordonnées il souhaite jouer la pièce
- * \details Demande au joueur les coordonnees ou il désire jouer sa pièce
-    Tant qu'il n'est pas possible de jouer aux coords, redemande des coordonnees valides
-    poser
- * \param pl Plateau de jeu
- * \param pi Pointeur sur la pièce à placer
- * \param x Variable dans laquelle stocker la coordonnée x du carre d'origine de la pièce
- * \param y Variable dans laquelle stocker la coordonnée y du carre d'origine de la pièce
- * \param j Pointeur sur le joueur choisissant les coordonnees
- */
-void choisir_coordonnee(Couleur pl[20][20], Piece* pi, int* x, int* y, Joueur* j)
-{
-    int x_depart;
-    int y_depart;
-    Carre* c;
-
-    /* Récupère les coordonnees de départ de chaque joueur en fonction de sa couleur */
-    switch(joueur_couleur(j))
-    {
-        case BLEU:
-            x_depart = BLUE_X;
-            y_depart = BLUE_Y;
-            break;
-
-        case JAUNE:
-            x_depart = YELLOW_X;
-            y_depart = YELLOW_Y;
-            break;
-
-        case ROUGE:
-            x_depart = RED_X;
-            y_depart = RED_Y;
-            break;
-
-        case VERT:
-            x_depart = GREEN_X;
-            y_depart = GREEN_Y;
-            break;
-
-        default:
-            break;
-    }
-
-    /* Si la Piece que le Joueur pose est sa toute première Piece, doit jouer dans son coin */
-    if(joueur_nb_piece_restantes(j) == NB_PIECES)
-    {
-        int coin = 0;
-        Carre* c2;
-
-        while(!coin)
-        {
-            c = piece_liste_carre(pi);
-
-            int valide;
-
-            /* Tant que les coordonnées saisies ne sont pas dans le Plateau */
-            do
-            {
-    	        c2 = piece_liste_carre(pi);
-
-                valide = 1;
-
-        		printf("Vous devez jouer dans votre coin\n");
-        		printf("A quelles coordonnees voulez-vous jouer la pièce ? (1 a 20) :\n");
-        		printf("Entrez la ligne : ");
-        		scanf("%d", x);
-        		printf("Entrez la colonne : ");
-        		scanf("%d", y);
-
-                /* Repasse les coordonnées utilisateur en coordonnées matricielles */
-        		*x = *x - 1;
-        		*y = *y - 1;
-
-                /* Pour chaque carré constituant la pièce... */
-                do
-                {
-        		    /* ... si il n'est pas dans le plateau, alors les coordonnees ne sont pas valides */
-        		    if(((*x + carre_get_x(c) < 0) || (*x + carre_get_x(c) > 19)) || ((*y + carre_get_y(c) < 0) || (*y + carre_get_y(c) > 19)))
-        		    {
-                            	valide = 0;
-        		    }
-
-        		    c = carre_get_suiv(c);
-
-                } while(c != c2);
-
-            } while((((*x < 0) || (*x > 19)) || ((*y < 0) || (*y > 19))) || !(valide));
-
-            /* Si aucun des carrés constituant la pièce n'occupe la case de départ du joueur, alors les coordonnées
-               ne sont pas valides */
-            do
-            {
-                if((*y + carre_get_y(c) == y_depart) && (*x + carre_get_x(c) == x_depart))
-                {
-                    coin = 1;
-                }
-
-                c = carre_get_suiv(c);
-            } while(c != c2);
-        }
-    }
-    else
-    {
-        c = piece_liste_carre(pi);
-        Carre *c2 = c;
-        carre_get_suiv(c);
-
-        int dans_plateau = 1;
-
-        /* Tant que les coordonnées ne sont pas dans le plateau, on redemande des coordonnées valides */
-        do
-        {
-            printf("A quelles coordonnees voulez-vous jouer la pièce ? :\n");
-        	printf("Entrez la ligne : ");
-        	scanf("%d", x);
-        	printf("Entrez la colonne : ");
-        	scanf("%d", y);
-
-            /* Repasse les coordonnées utilisateur en coordonnées matricielles */
-       		*x = *x - 1;
-            *y = *y - 1;
-
-            /* On vérifie pour chaque carré constituant la pièce */
-            while(c != c2)
-            {
-                if(((*x < 0) || (*x > 19)) || ((*y < 0) || (*y > 19)))
-                {
-                    dans_plateau = 0;
-                }
-            }
-        } while(!dans_plateau);
-
-        /* Si les conditions de pose de la pièce ne sont pas remplies, on redemande des coordonnées valides */
-        if(!verification_position(pl, *x, *y, pi) || !verification_couleur(pl, *x, *y, joueur_couleur(j), pi))
-        {
-            printf("Impossible de placer la piece aux coordonnees indiquees\n");
-            *x = *y = -1;
-        }
-    }
-}
 
 /**
  * \fn void poser_piece(Couleur pl[20][20], Piece* pi, Joueur* j, int x, int y)

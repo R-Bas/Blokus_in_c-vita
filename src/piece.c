@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../include/piece.h"
+#include <piece.h>
 
 /* Ce fichier sert à répertorier toutes les fonctions de creation pour les pièces du jeu */
 

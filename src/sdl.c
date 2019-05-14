@@ -1,23 +1,11 @@
-/**
-        \file sdl.c
-        \brief Fichier de fonctions pour initialiser la SDL
-        \author WIDMER Alexis
-        \version 1.0
-        \date 13/04/2019
-
-        Ce fichier permet d'initialiser toutes les variables nécessaires pour la SDL, de lancer en plein écran ou fenêtré et également de libérer les variables globales de la SDL.
-*/
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
-#ifdef WINDOWS
-#include <winsock2.h>
-#endif
 
-#include "../include/affichage_sdl.h"
-#include "../include/commun.h"
-#include "../include/son.h"
+#include <affichage_sdl.h>
+#include <commun.h>
+#include <son.h>
 
 SDL_Window * window;
 SDL_Renderer * renderer;
@@ -30,7 +18,7 @@ SDL_Renderer * renderer;
 	\return VRAI si la fonction s'est bien déroulée, FAUX s'il y a eu un problème.
 */
 int sdl_init(int fullscreen) {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
+	if (SDL_Init(SDL_INIT_VIDEO)) {
 		printf("Erreur initialisation SDL: %s\n", SDL_GetError());
 		return 0;
 	}
@@ -40,17 +28,14 @@ int sdl_init(int fullscreen) {
 		return 0;
 	}
 
+        #ifndef SANS_SON
 	if (!init_son()) {
 		printf("Erreur initialisation SDL_mixer\n");
 		return 0;
 	}
+        #endif
 
-	if (fullscreen) {
-		window = SDL_CreateWindow("Blokus in C", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, -1, -1, SDL_WINDOW_FULLSCREEN);
-	}
-	else {
-		window = SDL_CreateWindow("Blokus in C", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, L_FENETRE, H_FENETRE, SDL_WINDOW_SHOWN);
-	}
+	window = SDL_CreateWindow("Blokus in C", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 960, 544, SDL_WINDOW_SHOWN);
 
 	if (!window) {
 		printf("%s", SDL_GetError());

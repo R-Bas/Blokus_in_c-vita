@@ -1,16 +1,8 @@
-/**
- * \file sprite.c
- * \brief Fonctions de gestions des images pour la SDL
- * \details Diverses fonctions qui gèrent le chargement l'affiche
- * et la désallocation des images
- * \author BASTIDE Robin
- */
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/sprite.h"
+#include <sprite.h>
 
 // Variables globales externes
 extern SDL_Renderer * renderer;

@@ -1,23 +1,12 @@
-/**
- *	\file gestion_tour_sdl.c
- *	\brief Fichier de fonctions permettant de gérer le tour d'un joueur
- *  \details Contient les fonctions demandant la pièce à jouer, son orientation et ses coordonnées au joueur
-     ainsi que les fonctions de vérification de position et de couleur et de pose de celle-ci
- *  \author RIGUIDEL Hugo
- *	\version 1.0
- *	\date 18/03/2019
- */
-
-#include "../include/gestion_tour_sdl.h"
-#include "../include/affichage.h"
-#include "../include/carre.h"
-#include "../include/affichage_sdl.h"
-
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 #include <SDL2/SDL.h>
+
+#include <gestion_tour_sdl.h>
+#include <carre.h>
+#include <affichage_sdl.h>
+
 
 extern SDL_Renderer* renderer;
 

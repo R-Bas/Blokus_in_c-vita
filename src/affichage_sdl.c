@@ -1,22 +1,14 @@
-/**
- * \file affichage_sdl.c
- * \brief Fonctions d'affichages en SDL
- * \details Diverses fonctions d'affichage en interface
- * graphique pour le jeu du blokus
- * \author BASTIDE Robin
- */
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../include/sprite.h"
-#include "../include/affichage_sdl.h"
-#include "../include/couleur.h"
-#include "../include/commun.h"
-#include "../include/carre.h"
-#include "../include/joueur.h"
+#include <sprite.h>
+#include <affichage_sdl.h>
+#include <couleur.h>
+#include <commun.h>
+#include <carre.h>
+#include <joueur.h>
 
 // Variables globales externes
 /** \brief Renderer global */
@@ -78,14 +70,8 @@ Sprite * get_sprite(Couleur couleur) {
  */
 int init_affichage_sdl(int fullscreen) {
 
-    if (fullscreen) {
-        // Récupération taille écran dans le cas d'un plein écran
-        SDL_GetRendererOutputSize(renderer, &largeur_ecran, &hauteur_ecran);
-    }
-    else {
-        largeur_ecran = L_FENETRE;
-        hauteur_ecran = H_FENETRE;
-    }
+    largeur_ecran = L_FENETRE;
+    hauteur_ecran = H_FENETRE;
 
     // Définition de la taille d'un carré
     // Cette taille sera utilisé comme "unité de mesure"
@@ -99,35 +85,35 @@ int init_affichage_sdl(int fullscreen) {
         return 0;
     }
 
-    ressources->carre_vide = init_sprite("ressources/carre_vide.png", taille_carre, taille_carre);
-    ressources->carre_rouge = init_sprite("ressources/carre_rouge.png", taille_carre, taille_carre);
-    ressources->carre_jaune = init_sprite("ressources/carre_jaune.png", taille_carre, taille_carre);
-    ressources->carre_bleu = init_sprite("ressources/carre_bleu.png", taille_carre, taille_carre);
-    ressources->carre_vert = init_sprite("ressources/carre_vert.png", taille_carre, taille_carre);
-    ressources->selection = init_sprite("ressources/selection.png", taille_carre, taille_carre);
-    ressources->selection_erreur = init_sprite("ressources/selection_erreur.png", taille_carre, taille_carre);
-    ressources->police_m = TTF_OpenFont("ressources/police.ttf", taille_carre*1.5);
-    ressources->police_p = TTF_OpenFont("ressources/police.ttf", taille_carre);
-    ressources->fond_score = init_sprite("ressources/fond_score.png", taille_carre*8, taille_carre*16);
-    ressources->fond_tour = init_sprite("ressources/fond_tour.png", taille_carre*8, taille_carre*16);
-    ressources->bouton = init_sprite("ressources/bouton.png", taille_carre*4, taille_carre*12);
-    ressources->bouton_hover = init_sprite("ressources/bouton_hover.png", taille_carre*4, taille_carre*12);
-    ressources->bouton_petit = init_sprite("ressources/bouton.png", taille_carre*2, taille_carre*6);
-    ressources->bouton_petit_hover = init_sprite("ressources/bouton_hover.png", taille_carre*2, taille_carre*6);
-    ressources->fond_resultats = init_sprite("ressources/fond_resultats.png", taille_carre*20, taille_carre*20);
-    ressources->fond_titres = init_sprite("ressources/fond_titres.png", hauteur_ecran, hauteur_ecran*2.37);
-    ressources->fond_config = init_sprite("ressources/fond_config.png", taille_carre*16, taille_carre*43);
-    ressources->fond_saisie = init_sprite("ressources/fond_saisie.png", taille_carre*2, taille_carre*16);
-    ressources->tapis_rouge = init_sprite("ressources/tapis_rouge.png", taille_carre*LONG_T_BR, taille_carre*LARG_T_BR);
-    ressources->tapis_bleu = init_sprite("ressources/tapis_bleu.png", taille_carre*LONG_T_BR, taille_carre*LARG_T_BR);
-    ressources->tapis_jaune = init_sprite("ressources/tapis_jaune.png", taille_carre*LONG_T_VJ, taille_carre*LARG_T_VJ);
-    ressources->tapis_vert = init_sprite("ressources/tapis_vert.png", taille_carre*LONG_T_VJ, taille_carre*LARG_T_VJ);
-    ressources->fond_plateau = init_sprite("ressources/fond_plateau.png", taille_carre*22, taille_carre*22);
-    ressources->son = init_sprite("ressources/son.png", taille_carre*3, taille_carre*3);
-    ressources->son_selec = init_sprite("ressources/son_selec.png", taille_carre*3, taille_carre*3);
-    ressources->effet = init_sprite("ressources/effet.png", taille_carre*3, taille_carre*3);
-    ressources->effet_selec = init_sprite("ressources/effet_selec.png", taille_carre*3, taille_carre*3);
-    ressources->regles = init_sprite("ressources/regles.png", hauteur_ecran, hauteur_ecran*1.77);
+    ressources->carre_vide = init_sprite("app0:assets/carre_vide.png", taille_carre, taille_carre);
+    ressources->carre_rouge = init_sprite("app0:assets/carre_rouge.png", taille_carre, taille_carre);
+    ressources->carre_jaune = init_sprite("app0:assets/carre_jaune.png", taille_carre, taille_carre);
+    ressources->carre_bleu = init_sprite("app0:assets/carre_bleu.png", taille_carre, taille_carre);
+    ressources->carre_vert = init_sprite("app0:assets/carre_vert.png", taille_carre, taille_carre);
+    ressources->selection = init_sprite("app0:assets/selection.png", taille_carre, taille_carre);
+    ressources->selection_erreur = init_sprite("app0:assets/selection_erreur.png", taille_carre, taille_carre);
+    ressources->police_m = TTF_OpenFont("app0:assets/police.ttf", taille_carre*1.5);
+    ressources->police_p = TTF_OpenFont("app0:assets/police.ttf", taille_carre);
+    ressources->fond_score = init_sprite("app0:assets/fond_score.png", taille_carre*8, taille_carre*16);
+    ressources->fond_tour = init_sprite("app0:assets/fond_tour.png", taille_carre*8, taille_carre*16);
+    ressources->bouton = init_sprite("app0:assets/bouton.png", taille_carre*4, taille_carre*12);
+    ressources->bouton_hover = init_sprite("app0:assets/bouton_hover.png", taille_carre*4, taille_carre*12);
+    ressources->bouton_petit = init_sprite("app0:assets/bouton.png", taille_carre*2, taille_carre*6);
+    ressources->bouton_petit_hover = init_sprite("app0:assets/bouton_hover.png", taille_carre*2, taille_carre*6);
+    ressources->fond_resultats = init_sprite("app0:assets/fond_resultats.png", taille_carre*20, taille_carre*20);
+    ressources->fond_titres = init_sprite("app0:assets/fond_titres.png", hauteur_ecran, hauteur_ecran*2.37);
+    ressources->fond_config = init_sprite("app0:assets/fond_config.png", taille_carre*16, taille_carre*43);
+    ressources->fond_saisie = init_sprite("app0:assets/fond_saisie.png", taille_carre*2, taille_carre*16);
+    ressources->tapis_rouge = init_sprite("app0:assets/tapis_rouge.png", taille_carre*LONG_T_BR, taille_carre*LARG_T_BR);
+    ressources->tapis_bleu = init_sprite("app0:assets/tapis_bleu.png", taille_carre*LONG_T_BR, taille_carre*LARG_T_BR);
+    ressources->tapis_jaune = init_sprite("app0:assets/tapis_jaune.png", taille_carre*LONG_T_VJ, taille_carre*LARG_T_VJ);
+    ressources->tapis_vert = init_sprite("app0:assets/tapis_vert.png", taille_carre*LONG_T_VJ, taille_carre*LARG_T_VJ);
+    ressources->fond_plateau = init_sprite("app0:assets/fond_plateau.png", taille_carre*22, taille_carre*22);
+    ressources->son = init_sprite("app0:assets/son.png", taille_carre*3, taille_carre*3);
+    ressources->son_selec = init_sprite("app0:assets/son_selec.png", taille_carre*3, taille_carre*3);
+    ressources->effet = init_sprite("app0:assets/effet.png", taille_carre*3, taille_carre*3);
+    ressources->effet_selec = init_sprite("app0:assets/effet_selec.png", taille_carre*3, taille_carre*3);
+    ressources->regles = init_sprite("app0:assets/regles.png", hauteur_ecran, hauteur_ecran*1.77);
 
     ressources->blanc.r = 190;
     ressources->blanc.g = 190;

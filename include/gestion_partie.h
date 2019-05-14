@@ -2,10 +2,9 @@
 #ifndef GESTION_PARTIE_H
 #define GESTION_PARTIE_H
 
-#include "../include/commun.h"
-#include "../include/joueur.h"
-#include "../include/affichage.h"
-#include "../include/gestion_tour.h"
+#include <commun.h>
+#include <joueur.h>
+#include <gestion_tour.h>
 
 
 
